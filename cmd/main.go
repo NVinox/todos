@@ -5,10 +5,14 @@ import (
 
 	"github.com/NVinox/todos"
 	"github.com/NVinox/todos/internal/handler"
+	"github.com/NVinox/todos/internal/repository"
+	"github.com/NVinox/todos/internal/service"
 )
 
 func main() {
-	handler := new(handler.Handler)
+	repository := repository.NewRepository()
+	service := service.NewService(repository)
+	handler := handler.NewHandler(service)
 
 	server := new(todos.Server)
 	if err := server.Run("3000", handler.InitRoutes()); err != nil {
