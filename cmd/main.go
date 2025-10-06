@@ -4,12 +4,14 @@ import (
 	"log"
 
 	"github.com/NVinox/todos"
+	"github.com/NVinox/todos/internal/handler"
 )
 
 func main() {
-	server := new(todos.Server)
+	handler := new(handler.Handler)
 
-	if err := server.Run("3000"); err != nil {
+	server := new(todos.Server)
+	if err := server.Run("3000", handler.InitRoutes()); err != nil {
 		log.Fatal("Could not to run server: %s", err.Error())
 	}
 }
